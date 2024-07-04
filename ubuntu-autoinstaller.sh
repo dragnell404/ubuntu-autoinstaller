@@ -6,6 +6,7 @@ display_menu() {
     echo "1. Ubuntu 18.04"
     echo "2. Ubuntu 20.04"
     echo "3. Ubuntu 22.04"
+    echo "4. Ubuntu 24.04"
     read -p "Enter your choice: " choice
 }
 
@@ -34,14 +35,20 @@ case $choice in
     2)
         # Ubuntu 20.04
         img_file="ubuntu2004.img"
-        iso_link="https://releases.ubuntu.com/20.04/ubuntu-20.04.5-desktop-amd64.iso"
+        iso_link="https://releases.ubuntu.com/20.04/ubuntu-20.04.6-desktop-amd64.iso"
         iso_file="ubuntu2004.iso"
         ;;
     3)
         # Ubuntu 22.04
         img_file="ubuntu2204.img"
-        iso_link="https://releases.ubuntu.com/22.04/ubuntu-22.04.2-desktop-amd64.iso"
+        iso_link="https://releases.ubuntu.com/22.04/ubuntu-22.04.4-desktop-amd64.iso"
         iso_file="ubuntu2204.iso"
+        ;;
+    4)
+        # Ubuntu 24.04
+        img_file="ubuntu2404.img"
+        iso_link="https://releases.ubuntu.com/24.04/ubuntu-24.04-desktop-amd64.iso"
+        iso_file="ubuntu2404.iso"
         ;;
     *)
         echo "Invalid choice. Exiting."
@@ -58,5 +65,11 @@ echo "Image file $img_file created successfully."
 
 # Download Ubuntu ISO with the chosen name
 wget -O "$iso_file" "$iso_link"
+
+# Verify the ISO download
+if [ ! -s "$iso_file" ]; then
+    echo "Failed to download $iso_file. Please check the URL or your network connection."
+    exit 1
+fi
 
 echo "Ubuntu ISO downloaded successfully."
